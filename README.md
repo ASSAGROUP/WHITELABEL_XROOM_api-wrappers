@@ -2,9 +2,9 @@
 
 **Added:**
 * PHP
+* JS
 
 **To add:**
-* JS
 * Java
 * C#
 * Python
