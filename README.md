@@ -11,8 +11,8 @@ ___
 **Added:**
 * PHP
 * JS
+* Java
 
 **To add:**
-* Java
 * C#
 * Python
