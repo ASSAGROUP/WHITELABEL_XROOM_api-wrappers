@@ -42,7 +42,7 @@ class Xroom
      */
     public function call(string $endpoint, string $method, $payload = null)
     {
-        $random = generatePassword(32);
+        $random = generateSalt(32);
         $hmac = hash_hmac('sha256', $random, $this->secret);
 
         $payload = json_encode(['method' => $method, 'data' => $payload]);
@@ -80,7 +80,7 @@ class Xroom
  * @param bool $specialSymbols
  * @return string
  */
-function generatePassword(int $length = 8, bool $specialSymbols = true) : string
+function generateSalt(int $length = 8, bool $specialSymbols = true) : string
 {
     $pass = '';
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' . ($specialSymbols ? '.,!#%=?+-' : '');
