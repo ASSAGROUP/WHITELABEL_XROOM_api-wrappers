@@ -8,7 +8,7 @@ try
 {
     $result = $api->call('room', 'init', array
     (
-        'id' => 'xroom.app/hello-world',
+        'id' => 'your-domain.com/hello-world',
     ));
 }
 catch (\Exception $e)
