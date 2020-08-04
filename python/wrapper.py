@@ -46,6 +46,4 @@ class PythonAPI:
             'x-auth-key': str(signature),
         }
 
-        r = requests.post(f'https://{API_HOST}/api/{endpoint}', data=payload_dump, headers=headers)
-
-        return f'Status code {r.status_code}, {r.json()}'
+        return requests.post(f'https://{API_HOST}/api/{endpoint}', data=payload_dump, headers=headers)
