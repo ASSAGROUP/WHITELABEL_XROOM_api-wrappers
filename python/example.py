@@ -1,10 +1,10 @@
 from wrapper import PythonAPI
 
-api = PythonAPI('YOUR_USERNAME', 'YOUR_SECRET')
+api = PythonAPI('username', 'secret')
 
 payload = {
-        id: 'your-domain.com/hello-world',
-        }
+    id: 'your-domain.com/room-name',
+}
 
 c = api.call('room', 'init', payload)
 
