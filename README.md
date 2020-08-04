@@ -12,7 +12,7 @@ ___
 * PHP
 * JS
 * Java
+* Python
 
 **To add:**
 * C#
-* Python
