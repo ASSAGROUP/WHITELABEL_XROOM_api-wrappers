@@ -4,7 +4,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/xroom-app/api-wrappers)
 ![GitHub issues](https://img.shields.io/github/issues/xroom-app/api-wrappers)
 
-A collection of API wrappers for xroom.app and its white label version zroom.app.
+A collection of API wrappers for xroom.app.
 
 ___
 
