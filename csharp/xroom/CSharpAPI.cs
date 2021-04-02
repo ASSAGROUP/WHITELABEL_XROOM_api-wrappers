@@ -7,27 +7,27 @@ using System.Text.RegularExpressions;
 
 namespace xroom
 {
-	public class CSharpAPI
-	{
-		protected WebRequest request;
+    public class CSharpAPI
+    {
+        protected WebRequest request;
 
-		protected string username;
-		protected string secret;
-		protected string apiHost = "api.xroom.app";
-		protected string apiVersion = "2";
+        protected string username;
+        protected string secret;
+        protected string apiHost = "api.xroom.app";
+        protected string apiVersion = "2";
 
-		public CSharpAPI (string username, string secret)
-		{
-			if (username == null || secret == null)
-			{
-				throw new System.Exception ("Both username and secret are required.");
-			}
+        public CSharpAPI (string username, string secret)
+        {
+            if (username == null || secret == null)
+            {
+                throw new System.Exception ("Both username and secret are required.");
+            }
 
-			this.username = username;
-			this.secret = secret;
-		}
+            this.username = username;
+            this.secret = secret;
+        }
 
-		private static string RandomString(int length)
+        private static string RandomString(int length)
         {
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[32];
@@ -43,59 +43,59 @@ namespace xroom
             return finalString;
         }
 
-		public string Exec(string endpoint, string method, string jsonString = "{}")
-		{
-			if (endpoint == null || endpoint.Length == 0)
-			{
-				throw new System.Exception ("No endpoint specified");
-			}
+        public string Exec(string endpoint, string method, string jsonString = "{}")
+        {
+            if (endpoint == null || endpoint.Length == 0)
+            {
+                throw new System.Exception ("No endpoint specified");
+            }
 
-			// setup connection to endpoint
+            // setup connection to endpoint
             request = WebRequest.Create("https://" + apiHost + "/api/" + endpoint);
 
-			// compute HMAC
-			var enc = Encoding.ASCII;
-			HMACSHA256 hmac = new HMACSHA256(enc.GetBytes(secret));
-			hmac.Initialize();
+            // compute HMAC
+            var enc = Encoding.ASCII;
+            HMACSHA256 hmac = new HMACSHA256(enc.GetBytes(secret));
+            hmac.Initialize();
 
-			var salt = RandomString(32);
-			byte[] buffer = enc.GetBytes(salt);
-			var hash = BitConverter.ToString(hmac.ComputeHash(buffer)).Replace("-", "").ToLower();
+            var salt = RandomString(32);
+            byte[] buffer = enc.GetBytes(salt);
+            var hash = BitConverter.ToString(hmac.ComputeHash(buffer)).Replace("-", "").ToLower();
 
-			request.Method = "POST";
-  		    request.Headers ["x-api-version"] = apiVersion;
-  		    request.Headers ["x-random"] = salt;
-  		    request.Headers ["x-auth-id"] = username;
-  		    request.Headers ["x-auth-key"] = hash;
+            request.Method = "POST";
+              request.Headers ["x-api-version"] = apiVersion;
+              request.Headers ["x-random"] = salt;
+              request.Headers ["x-auth-id"] = username;
+              request.Headers ["x-auth-key"] = hash;
 
-			byte[] byteArray = Encoding.UTF8.GetBytes ("{\"method\":\"" + method + "\",\"data\":" + jsonString + "}");
+            byte[] byteArray = Encoding.UTF8.GetBytes ("{\"method\":\"" + method + "\",\"data\":" + jsonString + "}");
 
-			// Set the ContentLength property of the WebRequest.
-			request.ContentLength = byteArray.Length;
+            // Set the ContentLength property of the WebRequest.
+            request.ContentLength = byteArray.Length;
 
-			// Write data to the Stream
-			Stream dataStream = request.GetRequestStream ();
-			dataStream.Write (byteArray, 0, byteArray.Length);
-			dataStream.Close ();
+            // Write data to the Stream
+            Stream dataStream = request.GetRequestStream ();
+            dataStream.Write (byteArray, 0, byteArray.Length);
+            dataStream.Close ();
 
-			try
-			{
-				// Get the response.
-				WebResponse response = request.GetResponse ();
+            try
+            {
+                // Get the response.
+                WebResponse response = request.GetResponse ();
 
-				// Get the stream content and read it
-				dataStream = response.GetResponseStream ();
-				StreamReader reader = new StreamReader (dataStream);
+                // Get the stream content and read it
+                dataStream = response.GetResponseStream ();
+                StreamReader reader = new StreamReader (dataStream);
 
-				// Read the content.
-				string responseFromServer = reader.ReadToEnd ();
+                // Read the content.
+                string responseFromServer = reader.ReadToEnd ();
 
-				// Clean up
-				reader.Close ();
-				dataStream.Close ();
-				response.Close ();
+                // Clean up
+                reader.Close ();
+                dataStream.Close ();
+                response.Close ();
 
-				return responseFromServer;
+                return responseFromServer;
             }
             catch (WebException webExcp)
             {
@@ -108,6 +108,6 @@ namespace xroom
 
                 return (int)httpResponse.StatusCode + " - " + httpResponse.StatusCode;
             }
-		}
-	}
+        }
+    }
 }
