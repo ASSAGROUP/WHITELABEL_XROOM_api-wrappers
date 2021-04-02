@@ -1,7 +1,7 @@
 <?php
 
 const API_VERSION = 2;
-const API_HOST = 'signal.zroom.app';
+const API_HOST = 'api.xroom.app';
 
 class Xroom
 {

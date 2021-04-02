@@ -6,7 +6,7 @@ import requests
 import hashlib
 
 API_VERSION = 2
-API_HOST = 'signal.zroom.app'
+API_HOST = 'api.xroom.app'
 
 
 class PythonAPI:

@@ -1,7 +1,7 @@
 const https = require('https')
 const crypto = require('crypto')
 
-const API_HOST = 'signal.zroom.app'
+const API_HOST = 'api.xroom.app'
 const API_VERSION = 2
 
 class Xroom {

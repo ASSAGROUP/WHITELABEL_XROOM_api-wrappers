@@ -11,7 +11,7 @@ public class JavaAPI
 
 	protected String username;
 	protected String secret;
-	protected String apiHost = "signal.zroom.app";
+	protected String apiHost = "api.xroom.app";
 	protected String apiVersion = "2";
 
     public JavaAPI(String username, String secret) throws Exception
